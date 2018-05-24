@@ -1,28 +1,39 @@
 var topics = ["batman", "superman", "trees", "sand", "happy", "sad", "lol", "space", "dirt"];
+
 //"http://api.giphy.com/v1/gifs/search?q=ryan+gosling&api_key=YOUR_API_KEY&limit=5"
 
 buttonMaker();
+
+$("#buttons").on("click", function (event) {
+    event.preventDefault();
+    gifSeletced($(this).attr("data-name"));
+    console.log("the name of the button " + ($(this).attr("data-name")));
+});
+
+$("#add-gif").on("click", function (event) {
+    event.preventDefault();
+    gifSeletced($("#searchInput").val());
+});
 
 function buttonMaker() {
     console.log("buttonMaker was called");
     $("#buttons").empty();
     for (var i = 0; i < topics.length; i++) {
         var newButton = $("<button>");
-        newButton.addClass("gif");
+        newButton.addClass(topics[i]);
         newButton.attr("data-name", topics[i]);
+        console.log(topics[i]);
         newButton.text(topics[i]);
         $("#buttons").append(newButton);
     }
 }
 
-function buttonSelected() {
+function gifSeletced(wantedGif) {
 
-}
-
-$("#add-gif").on("click", function (event) {
-    event.preventDefault();
-    var wantedGif = $("#searchInput").val();
-    var quaryURL = "http://api.giphy.com/v1/gifs/search?q=" + wantedGif + "&api_key=krsfidvpUvoa9TjrFjFKcRZif8FtU45h&limit=200"
+    if (topics.indexOf(wantedGif > 0)) {
+        topics.push(wantedGif);
+    }
+    var quaryURL = "http://api.giphy.com/v1/gifs/search?q=" + wantedGif + "&api_key=krsfidvpUvoa9TjrFjFKcRZif8FtU45h&limit=200";
 
     $.ajax({
         url: quaryURL,
@@ -34,9 +45,7 @@ $("#add-gif").on("click", function (event) {
             console.log(randomGif);
             ($("#gifs").prepend("<img src=" + (response.data[randomGif].images.original.url) + " height = 400 width = 400>\n"));
             ($("#gifs").prepend("<p>" + (response.data[randomGif].rating) + "</p>\n"));
-
-
-
         }
     })
-});
+    buttonMaker();
+}
