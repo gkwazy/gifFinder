@@ -4,10 +4,11 @@ var topics = ["batman", "superman", "trees", "sand", "happy", "sad", "lol", "spa
 
 buttonMaker();
 
-$("#buttons").on("click", function (event) {
+$("#buttons").on("click", "#gifButton", function (event) {
     event.preventDefault();
+    console.log("the name of the button " + ($(this).text()));
     gifSeletced($(this).attr("data-name"));
-    console.log("the name of the button " + ($(this).attr("data-name")));
+
 });
 
 $("#add-gif").on("click", function (event) {
@@ -19,7 +20,7 @@ function buttonMaker() {
     console.log("buttonMaker was called");
     $("#buttons").empty();
     for (var i = 0; i < topics.length; i++) {
-        var newButton = $("<button>");
+        var newButton = $("<button id='gifButton'>");
         newButton.addClass(topics[i]);
         newButton.attr("data-name", topics[i]);
         console.log(topics[i]);
@@ -30,7 +31,7 @@ function buttonMaker() {
 
 function gifSeletced(wantedGif) {
 
-    if (topics.indexOf(wantedGif > 0)) {
+    if (topics.indexOf(wantedGif == -1)) {
         topics.push(wantedGif);
     }
     var quaryURL = "http://api.giphy.com/v1/gifs/search?q=" + wantedGif + "&api_key=krsfidvpUvoa9TjrFjFKcRZif8FtU45h&limit=200";
