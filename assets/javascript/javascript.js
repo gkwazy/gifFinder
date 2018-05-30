@@ -16,6 +16,20 @@ $("#add-gif").on("click", function (event) {
     gifSeletced($("#searchInput").val());
 });
 
+$("#gifs").on("click", ".pic", function (event) {
+    event.preventDefault();
+    console.log("gif was clicked and ran")
+    if ($(this).attr("data-state") == "still") {
+        $(this).attr("src", $(this).attr("data-animated"));
+        $(this).attr("data-state", "animated");
+        console.log("swtich to a animated gif")
+    } else {
+        $(this).attr("src", $(this).attr("data-stillPic"));
+        $(this).attr("data-state", "still");
+        console.log("changed to a still gif")
+    }
+});
+
 function buttonMaker() {
     console.log("buttonMaker was called");
     $("#buttons").empty();
@@ -30,10 +44,12 @@ function buttonMaker() {
 }
 
 function gifSeletced(wantedGif) {
-
-    if (topics.indexOf(wantedGif == -1)) {
+    console.log("this is what is being found in the indexOf " + topics.indexOf(wantedGif));
+    if (topics.indexOf(wantedGif) < 0) {
         topics.push(wantedGif);
+        console.log("the topic was pushed.")
     }
+    console.log(topics)
     var quaryURL = "http://api.giphy.com/v1/gifs/search?q=" + wantedGif + "&api_key=krsfidvpUvoa9TjrFjFKcRZif8FtU45h&limit=200";
 
     $.ajax({
@@ -44,9 +60,16 @@ function gifSeletced(wantedGif) {
         for (var i = 0; i < 10; i++) {
             randomGif = Math.floor(Math.random() * 200);
             console.log(randomGif);
-            ($("#gifs").prepend("<img src=" + (response.data[randomGif].images.original.url) + " height = 400 width = 400>\n"));
-            ($("#gifs").prepend("<p>" + (response.data[randomGif].rating) + "</p>\n"));
+            if (response.data[randomGif].rating == "g" || response.data[randomGif].rating == "pg") {
+                ($("#gifs").prepend("<img src=" + (response.data[randomGif].images.original_still.url) +
+                    " data-stillPic = " + response.data[randomGif].images.original_still.url + " data-animated = " +
+                    response.data[randomGif].images.original.url + " height = 400 width = 400 data-state = still class = pic>\n"));
+                ($("#gifs").prepend("<p>" + (response.data[randomGif].rating) + "</p>\n"));
+            } else (
+                i--
+            )
         }
     })
     buttonMaker();
 }
+
