@@ -34,7 +34,7 @@ function buttonMaker() {
     console.log("buttonMaker was called");
     $("#buttons").empty();
     for (var i = 0; i < topics.length; i++) {
-        var newButton = $("<button id='gifButton'type= 'button' class='btn btn-outline-dark'>Dark</button>");
+        var newButton = $("<button id='gifButton'type= 'button' class='btn btn-outline-light'>Dark</button>");
         newButton.addClass(topics[i]);
         newButton.attr("data-name", topics[i]);
         console.log(topics[i]);
@@ -61,10 +61,11 @@ function gifSeletced(wantedGif) {
             randomGif = Math.floor(Math.random() * 200);
             console.log(randomGif);
             if (response.data[randomGif].rating == "g" || response.data[randomGif].rating == "pg") {
+                ($("#gifs").prepend("<p> Gif's Rating: " + (response.data[randomGif].rating) + "</p>"));
                 ($("#gifs").prepend("<img src=" + (response.data[randomGif].images.original_still.url) +
                     " data-stillPic = " + response.data[randomGif].images.original_still.url + " data-animated = " +
                     response.data[randomGif].images.original.url + " height = 100% width = 100% data-state = still class = pic>\n"));
-                ($("#gifs").prepend("<p>" + (response.data[randomGif].rating) + "</p>\n"));
+
             } else (
                 i--
             )

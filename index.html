@@ -9,26 +9,37 @@
     <link rel="stylesheet" type="text/css" media="screen" href="assets/css/style.css" />
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4"
         crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css?family=Shrikhand" rel="stylesheet">
 </head>
 
 <body>
     <div class="container">
-        <div class="row-3" id="buttons">
-
+        <div class="jumbotron">
+            <h1 class="display-4">Gif Finder</h1>
+            <p class="lead">Press a button to search for gifs using that key work or search for your own by typing a word to search in the
+                search bar! Click the Gif to watch the animation!
+            </p>
         </div>
-        <div class="row-9 justify-content-start">
-            <div class="col-6" id="userSearch">
-                <form id="gifForm">
-                    <label for="gifInput">Search For Gifs</label>
-                    <input type="text" id="searchInput">
-                    <input type="submit" id="add-gif" value="Search">
-                </form>
+        <div class="row">
+            <div id="buttons"></div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <div id="userSearch">
+                    <form id="gifForm">
+                        <label for="gifInput">Search For Gifs</label>
+                        <input type="text" id="searchInput">
+                        <input type="submit" id="add-gif" value="Search">
+                    </form>
+                </div>
             </div>
-            <div class="col-6" id="gifs">
-
+            <div class="col-md-6">
+                <div id="gifs"></div>
             </div>
         </div>
     </div>
+
+
 </body>
 <script src="https://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" crossorigin="anonymous"></script>
 <script src="assets/javascript/javascript.js"></script>
